@@ -1,0 +1,9 @@
+#   build info
+build:
+  dist:  ./dist
+  src:   ./es6
+
+dev:
+  debug: true
+  port:  80
+  
