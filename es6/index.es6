@@ -1,4 +1,9 @@
 let init = function () {
-    document.write('Hi, yiifaa!')
+    let message = 'Hello, Yiifaa!',
+        dom = $(`<h1>${message}</h1>`)
+    $('body').append(dom)
+    dom.css({
+        color : 'blue'
+    })
 }
 init()

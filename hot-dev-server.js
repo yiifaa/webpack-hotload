@@ -5,6 +5,7 @@ var http = require('http'),
     app = express();
 
 app.use(require('morgan')('short'));
+app.use('/dist/node_modules', express.static('dist/node_modules'));
 
 //  准备编译
 var webpack = require('webpack'),
@@ -28,6 +29,10 @@ app.use(require("webpack-hot-middleware")(compiler, {
 app.get("/", function(req, res) {
   res.sendFile(__dirname + '/index.html');
 });
+//  提供主文件入口
+app.get('/index.js', (req, res) => {
+    res.sendFile(__dirname + '/index.js')
+})
 
 //  启动服务器
 if (require.main === module) {

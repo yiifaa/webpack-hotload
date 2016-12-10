@@ -65,7 +65,7 @@
 /******/ 	}
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "92dbebca6461687ddaf1"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "450b6fea8d520c229de9"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -593,7 +593,12 @@
 	'use strict';
 	
 	var init = function init() {
-	    document.write('Hi, world!');
+	    var message = 'Hello, Yiifaa!',
+	        dom = $('<h1>' + message + '</h1>');
+	    $('body').append(dom);
+	    dom.css({
+	        color: 'blue'
+	    });
 	};
 	init();
 

@@ -1,3 +1,4 @@
+//  基本配置文件，服务器配置基于此进行扩展
 var configs = require('./configs'),
     webpack = require('webpack'),
     fallback = configs.libPath,
@@ -15,6 +16,7 @@ module.exports = {
         path: configs.dist,
         publicPath: '/dist/',
         filename: '[name].js',
+        //  umd包含了对amd、commonjs、var等多种规范的支持  
         libraryTarget : 'var'  
     },
 
@@ -34,6 +36,7 @@ module.exports = {
     
     //  用来配置应用层的模块解析，即要被打包的模块
     resolve: {
+        //  .js扩展非常重要，千万不要忽略，否则经常出现模块无法加载错误
         extensions: ['', '.js', '.es6', '.vue'],
         fallback
     },
@@ -43,6 +46,15 @@ module.exports = {
         fallback
     },
     
+     
+    /*
+     * 需要从外部引入的库文件
+     */
+    externals: {
+        'jquery' : 'jQuery'
+    },
+    
+    //  可以优化，添加到webpack.config.server.js中
     plugins: [
         new webpack.optimize.OccurenceOrderPlugin(),
         new webpack.HotModuleReplacementPlugin(),

@@ -11,3 +11,11 @@ Webpack热加载模板
 3. 支持Vue等端对端的解决方案；
 4. 支持yaml配置文件；
 
+## 3. 运行方式
+```bash
+#   启动调试模式
+npm run dev
+#   启动生产模式
+#   支持github网站发布
+npm run build
+```
