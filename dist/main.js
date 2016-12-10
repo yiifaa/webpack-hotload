@@ -1,4 +1,4 @@
-/******/ (function(modules) { // webpackBootstrap
+define(["jquery"], function(__WEBPACK_EXTERNAL_MODULE_3__) { return /******/ (function(modules) { // webpackBootstrap
 /******/ 	var parentHotUpdateCallback = this["webpackHotUpdate"];
 /******/ 	this["webpackHotUpdate"] = 
 /******/ 	function webpackHotUpdateCallback(chunkId, moreModules) { // eslint-disable-line no-unused-vars
@@ -65,7 +65,7 @@
 /******/ 	}
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "450b6fea8d520c229de9"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "24bb15d01d46f08f103a"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -588,20 +588,55 @@
 
 /***/ },
 /* 1 */
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	exports.init = undefined;
+	
+	var _jquery = __webpack_require__(3);
+	
+	var _jquery2 = _interopRequireDefault(_jquery);
+	
+	var _MathUtils = __webpack_require__(2);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
 	var init = function init() {
-	    var message = 'Hello, Yiifaa!',
-	        dom = $('<h1>' + message + '</h1>');
-	    $('body').append(dom);
+	    var message = (0, _MathUtils.add)('Hello,', ' World!!'),
+	        dom = (0, _jquery2.default)('<h1>' + message + '</h1>');
+	    (0, _jquery2.default)('body').append(dom);
 	    dom.css({
 	        color: 'blue'
 	    });
 	};
 	init();
+	
+	exports.init = init;
+
+/***/ },
+/* 2 */
+/***/ function(module, exports) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	exports.add = add;
+	function add(a, b) {
+	    return a + b;
+	}
+
+/***/ },
+/* 3 */
+/***/ function(module, exports) {
+
+	module.exports = __WEBPACK_EXTERNAL_MODULE_3__;
 
 /***/ }
-/******/ ]);
+/******/ ])});;
 //# sourceMappingURL=main.js.map

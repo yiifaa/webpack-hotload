@@ -1,5 +1,8 @@
+import $ from 'jquery'
+import { add } from './utils/MathUtils'
+
 let init = function () {
-    let message = 'Hello, Yiifaa!',
+    let message = add('Hello,', ' World!!'),
         dom = $(`<h1>${message}</h1>`)
     $('body').append(dom)
     dom.css({
@@ -7,3 +10,5 @@ let init = function () {
     })
 }
 init()
+
+export { init }

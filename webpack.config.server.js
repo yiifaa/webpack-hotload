@@ -1,4 +1,4 @@
-var hotMiddlewareScript = 'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000&reload=true',
+var hotMiddlewareScript = 'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000&reload=true&overlay=false',
     buildConfig = require('./webpack.config'),
     entries = Object.keys(buildConfig.entry);
 //  添加热加载信息

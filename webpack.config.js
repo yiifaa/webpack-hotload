@@ -17,7 +17,7 @@ module.exports = {
         publicPath: '/dist/',
         filename: '[name].js',
         //  umd包含了对amd、commonjs、var等多种规范的支持  
-        libraryTarget : 'var'  
+        libraryTarget : 'amd'  
     },
 
     devtool: '#source-map',
@@ -51,7 +51,7 @@ module.exports = {
      * 需要从外部引入的库文件
      */
     externals: {
-        'jquery' : 'jQuery'
+        'jquery' : 'jquery'
     },
     
     //  可以优化，添加到webpack.config.server.js中
