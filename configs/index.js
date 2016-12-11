@@ -14,13 +14,14 @@ try {
 
 var dist = path.resolve(context, configs.build.dist),
     src = path.resolve(context, configs.build.src),
-    dev = configs.dev;
-
+    dev = configs.dev,
+    web= configs.web;
 //  输出结果
 module.exports = {
     dist,
     src,
     context,
     libPath,
-    dev
+    dev,
+    web
 };

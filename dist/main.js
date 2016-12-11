@@ -65,7 +65,7 @@
 /******/ 	}
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "450b6fea8d520c229de9"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "608b5d6e380b18d62cb4"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -583,24 +583,611 @@
 /* 0 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(1);
+	module.exports = __webpack_require__(4);
 
 
 /***/ },
 /* 1 */
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(6)();
+	// imports
+	
+	
+	// module
+	exports.push([module.id, "html,\nbody {\n  height: 100%;\n  min-height: 100%;\n  overflow-x: hidden;\n}\n", ""]);
+	
+	// exports
+
+
+/***/ },
+/* 2 */
+/***/ function(module, exports) {
+
+	var Vue // late bind
+	var map = window.__VUE_HOT_MAP__ = Object.create(null)
+	var installed = false
+	var isBrowserify = false
+	var initHookName = 'beforeCreate'
+	
+	exports.install = function (vue, browserify) {
+	  if (installed) return
+	  installed = true
+	
+	  Vue = vue
+	  isBrowserify = browserify
+	
+	  // compat with < 2.0.0-alpha.7
+	  if (Vue.config._lifecycleHooks.indexOf('init') > -1) {
+	    initHookName = 'init'
+	  }
+	
+	  exports.compatible = Number(Vue.version.split('.')[0]) >= 2
+	  if (!exports.compatible) {
+	    console.warn(
+	      '[HMR] You are using a version of vue-hot-reload-api that is ' +
+	      'only compatible with Vue.js core ^2.0.0.'
+	    )
+	    return
+	  }
+	}
+	
+	/**
+	 * Create a record for a hot module, which keeps track of its constructor
+	 * and instances
+	 *
+	 * @param {String} id
+	 * @param {Object} options
+	 */
+	
+	exports.createRecord = function (id, options) {
+	  var Ctor = null
+	  if (typeof options === 'function') {
+	    Ctor = options
+	    options = Ctor.options
+	  }
+	  makeOptionsHot(id, options)
+	  map[id] = {
+	    Ctor: Vue.extend(options),
+	    instances: []
+	  }
+	}
+	
+	/**
+	 * Make a Component options object hot.
+	 *
+	 * @param {String} id
+	 * @param {Object} options
+	 */
+	
+	function makeOptionsHot (id, options) {
+	  injectHook(options, initHookName, function () {
+	    map[id].instances.push(this)
+	  })
+	  injectHook(options, 'beforeDestroy', function () {
+	    var instances = map[id].instances
+	    instances.splice(instances.indexOf(this), 1)
+	  })
+	}
+	
+	/**
+	 * Inject a hook to a hot reloadable component so that
+	 * we can keep track of it.
+	 *
+	 * @param {Object} options
+	 * @param {String} name
+	 * @param {Function} hook
+	 */
+	
+	function injectHook (options, name, hook) {
+	  var existing = options[name]
+	  options[name] = existing
+	    ? Array.isArray(existing)
+	      ? existing.concat(hook)
+	      : [existing, hook]
+	    : [hook]
+	}
+	
+	function tryWrap (fn) {
+	  return function (id, arg) {
+	    try { fn(id, arg) } catch (e) {
+	      console.error(e)
+	      console.warn('Something went wrong during Vue component hot-reload. Full reload required.')
+	    }
+	  }
+	}
+	
+	exports.rerender = tryWrap(function (id, fns) {
+	  var record = map[id]
+	  record.Ctor.options.render = fns.render
+	  record.Ctor.options.staticRenderFns = fns.staticRenderFns
+	  record.instances.slice().forEach(function (instance) {
+	    instance.$options.render = fns.render
+	    instance.$options.staticRenderFns = fns.staticRenderFns
+	    instance._staticTrees = [] // reset static trees
+	    instance.$forceUpdate()
+	  })
+	})
+	
+	exports.reload = tryWrap(function (id, options) {
+	  makeOptionsHot(id, options)
+	  var record = map[id]
+	  record.Ctor.extendOptions = options
+	  var newCtor = Vue.extend(options)
+	  record.Ctor.options = newCtor.options
+	  record.Ctor.cid = newCtor.cid
+	  if (newCtor.release) {
+	    // temporary global mixin strategy used in < 2.0.0-alpha.6
+	    newCtor.release()
+	  }
+	  record.instances.slice().forEach(function (instance) {
+	    if (instance.$parent) {
+	      instance.$parent.$forceUpdate()
+	    } else {
+	      console.warn('Root or manually mounted instance modified. Full reload required.')
+	    }
+	  })
+	})
+
+
+/***/ },
+/* 3 */
+/***/ function(module, exports) {
+
+	module.exports = Vue;
+
+/***/ },
+/* 4 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	__webpack_require__(9);
+	
+	var _vue = __webpack_require__(3);
+	
+	var _vue2 = _interopRequireDefault(_vue);
+	
+	var _Hello = __webpack_require__(10);
+	
+	var _Hello2 = _interopRequireDefault(_Hello);
+	
+	var _index = __webpack_require__(7);
+	
+	var _index2 = _interopRequireDefault(_index);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	//  定义初始化函数
+	var init = function init() {
+	    /**
+	    let template = `<div>
+	                        <h1 v-text="message"></h1>
+	                        <hello></hello>
+	                    </div>`,
+	     **/
+	    //  初始化根节点
+	    var App = _vue2.default.extend({
+	
+	        template: _index2.default,
+	
+	        data: function data() {
+	            return {
+	                message: 'Hello, 累!'
+	            };
+	        },
+	
+	
+	        components: {
+	            //  hello对象只能作为Vue子组件，不能直接初始化
+	            hello: _Hello2.default
+	        }
+	    });
+	
+	    //  初始化应用
+	    new App({
+	        el: '#appRoot'
+	    });
+	};
+	//  执行函数
+	init();
+
+/***/ },
+/* 5 */
 /***/ function(module, exports) {
 
 	'use strict';
 	
-	var init = function init() {
-	    var message = 'Hello, Yiifaa!',
-	        dom = $('<h1>' + message + '</h1>');
-	    $('body').append(dom);
-	    dom.css({
-	        color: 'blue'
-	    });
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	//
+	//
+	//
+	
+	exports.default = {
+	    data: function data() {
+	        return {
+	            message: 'Hello, YiiFaa!'
+	        };
+	    }
 	};
-	init();
+
+/***/ },
+/* 6 */
+/***/ function(module, exports) {
+
+	/*
+		MIT License http://www.opensource.org/licenses/mit-license.php
+		Author Tobias Koppers @sokra
+	*/
+	// css base code, injected by the css-loader
+	module.exports = function() {
+		var list = [];
+	
+		// return the list of modules as css string
+		list.toString = function toString() {
+			var result = [];
+			for(var i = 0; i < this.length; i++) {
+				var item = this[i];
+				if(item[2]) {
+					result.push("@media " + item[2] + "{" + item[1] + "}");
+				} else {
+					result.push(item[1]);
+				}
+			}
+			return result.join("");
+		};
+	
+		// import a list of modules into the list
+		list.i = function(modules, mediaQuery) {
+			if(typeof modules === "string")
+				modules = [[null, modules, ""]];
+			var alreadyImportedModules = {};
+			for(var i = 0; i < this.length; i++) {
+				var id = this[i][0];
+				if(typeof id === "number")
+					alreadyImportedModules[id] = true;
+			}
+			for(i = 0; i < modules.length; i++) {
+				var item = modules[i];
+				// skip already imported module
+				// this implementation is not 100% perfect for weird media query combinations
+				//  when a module is imported multiple times with different media queries.
+				//  I hope this will never occur (Hey this way we have smaller bundles)
+				if(typeof item[0] !== "number" || !alreadyImportedModules[item[0]]) {
+					if(mediaQuery && !item[2]) {
+						item[2] = mediaQuery;
+					} else if(mediaQuery) {
+						item[2] = "(" + item[2] + ") and (" + mediaQuery + ")";
+					}
+					list.push(item);
+				}
+			}
+		};
+		return list;
+	};
+
+
+/***/ },
+/* 7 */
+/***/ function(module, exports) {
+
+	module.exports = "<main class=\"container\">\r\n    <h1 v-text=\"message\"></h1>\r\n    <hello></hello>\r\n</main>";
+
+/***/ },
+/* 8 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/*
+		MIT License http://www.opensource.org/licenses/mit-license.php
+		Author Tobias Koppers @sokra
+	*/
+	var stylesInDom = {},
+		memoize = function(fn) {
+			var memo;
+			return function () {
+				if (typeof memo === "undefined") memo = fn.apply(this, arguments);
+				return memo;
+			};
+		},
+		isOldIE = memoize(function() {
+			return /msie [6-9]\b/.test(window.navigator.userAgent.toLowerCase());
+		}),
+		getHeadElement = memoize(function () {
+			return document.head || document.getElementsByTagName("head")[0];
+		}),
+		singletonElement = null,
+		singletonCounter = 0;
+	
+	module.exports = function(list, options) {
+		if(false) {
+			if(typeof document !== "object") throw new Error("The style-loader cannot be used in a non-browser environment");
+		}
+	
+		options = options || {};
+		// Force single-tag solution on IE6-9, which has a hard limit on the # of <style>
+		// tags it will allow on a page
+		if (typeof options.singleton === "undefined") options.singleton = isOldIE();
+	
+		var styles = listToStyles(list);
+		addStylesToDom(styles, options);
+	
+		return function update(newList) {
+			var mayRemove = [];
+			for(var i = 0; i < styles.length; i++) {
+				var item = styles[i];
+				var domStyle = stylesInDom[item.id];
+				domStyle.refs--;
+				mayRemove.push(domStyle);
+			}
+			if(newList) {
+				var newStyles = listToStyles(newList);
+				addStylesToDom(newStyles, options);
+			}
+			for(var i = 0; i < mayRemove.length; i++) {
+				var domStyle = mayRemove[i];
+				if(domStyle.refs === 0) {
+					for(var j = 0; j < domStyle.parts.length; j++)
+						domStyle.parts[j]();
+					delete stylesInDom[domStyle.id];
+				}
+			}
+		};
+	}
+	
+	function addStylesToDom(styles, options) {
+		for(var i = 0; i < styles.length; i++) {
+			var item = styles[i];
+			var domStyle = stylesInDom[item.id];
+			if(domStyle) {
+				domStyle.refs++;
+				for(var j = 0; j < domStyle.parts.length; j++) {
+					domStyle.parts[j](item.parts[j]);
+				}
+				for(; j < item.parts.length; j++) {
+					domStyle.parts.push(addStyle(item.parts[j], options));
+				}
+			} else {
+				var parts = [];
+				for(var j = 0; j < item.parts.length; j++) {
+					parts.push(addStyle(item.parts[j], options));
+				}
+				stylesInDom[item.id] = {id: item.id, refs: 1, parts: parts};
+			}
+		}
+	}
+	
+	function listToStyles(list) {
+		var styles = [];
+		var newStyles = {};
+		for(var i = 0; i < list.length; i++) {
+			var item = list[i];
+			var id = item[0];
+			var css = item[1];
+			var media = item[2];
+			var sourceMap = item[3];
+			var part = {css: css, media: media, sourceMap: sourceMap};
+			if(!newStyles[id])
+				styles.push(newStyles[id] = {id: id, parts: [part]});
+			else
+				newStyles[id].parts.push(part);
+		}
+		return styles;
+	}
+	
+	function createStyleElement() {
+		var styleElement = document.createElement("style");
+		var head = getHeadElement();
+		styleElement.type = "text/css";
+		head.appendChild(styleElement);
+		return styleElement;
+	}
+	
+	function createLinkElement() {
+		var linkElement = document.createElement("link");
+		var head = getHeadElement();
+		linkElement.rel = "stylesheet";
+		head.appendChild(linkElement);
+		return linkElement;
+	}
+	
+	function addStyle(obj, options) {
+		var styleElement, update, remove;
+	
+		if (options.singleton) {
+			var styleIndex = singletonCounter++;
+			styleElement = singletonElement || (singletonElement = createStyleElement());
+			update = applyToSingletonTag.bind(null, styleElement, styleIndex, false);
+			remove = applyToSingletonTag.bind(null, styleElement, styleIndex, true);
+		} else if(obj.sourceMap &&
+			typeof URL === "function" &&
+			typeof URL.createObjectURL === "function" &&
+			typeof URL.revokeObjectURL === "function" &&
+			typeof Blob === "function" &&
+			typeof btoa === "function") {
+			styleElement = createLinkElement();
+			update = updateLink.bind(null, styleElement);
+			remove = function() {
+				styleElement.parentNode.removeChild(styleElement);
+				if(styleElement.href)
+					URL.revokeObjectURL(styleElement.href);
+			};
+		} else {
+			styleElement = createStyleElement();
+			update = applyToTag.bind(null, styleElement);
+			remove = function() {
+				styleElement.parentNode.removeChild(styleElement);
+			};
+		}
+	
+		update(obj);
+	
+		return function updateStyle(newObj) {
+			if(newObj) {
+				if(newObj.css === obj.css && newObj.media === obj.media && newObj.sourceMap === obj.sourceMap)
+					return;
+				update(obj = newObj);
+			} else {
+				remove();
+			}
+		};
+	}
+	
+	var replaceText = (function () {
+		var textStore = [];
+	
+		return function (index, replacement) {
+			textStore[index] = replacement;
+			return textStore.filter(Boolean).join('\n');
+		};
+	})();
+	
+	function applyToSingletonTag(styleElement, index, remove, obj) {
+		var css = remove ? "" : obj.css;
+	
+		if (styleElement.styleSheet) {
+			styleElement.styleSheet.cssText = replaceText(index, css);
+		} else {
+			var cssNode = document.createTextNode(css);
+			var childNodes = styleElement.childNodes;
+			if (childNodes[index]) styleElement.removeChild(childNodes[index]);
+			if (childNodes.length) {
+				styleElement.insertBefore(cssNode, childNodes[index]);
+			} else {
+				styleElement.appendChild(cssNode);
+			}
+		}
+	}
+	
+	function applyToTag(styleElement, obj) {
+		var css = obj.css;
+		var media = obj.media;
+		var sourceMap = obj.sourceMap;
+	
+		if(media) {
+			styleElement.setAttribute("media", media)
+		}
+	
+		if(styleElement.styleSheet) {
+			styleElement.styleSheet.cssText = css;
+		} else {
+			while(styleElement.firstChild) {
+				styleElement.removeChild(styleElement.firstChild);
+			}
+			styleElement.appendChild(document.createTextNode(css));
+		}
+	}
+	
+	function updateLink(linkElement, obj) {
+		var css = obj.css;
+		var media = obj.media;
+		var sourceMap = obj.sourceMap;
+	
+		if(sourceMap) {
+			// http://stackoverflow.com/a/26603875
+			css += "\n/*# sourceMappingURL=data:application/json;base64," + btoa(unescape(encodeURIComponent(JSON.stringify(sourceMap)))) + " */";
+		}
+	
+		var blob = new Blob([css], { type: "text/css" });
+	
+		var oldSrc = linkElement.href;
+	
+		linkElement.href = URL.createObjectURL(blob);
+	
+		if(oldSrc)
+			URL.revokeObjectURL(oldSrc);
+	}
+
+
+/***/ },
+/* 9 */
+/***/ function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+	
+	// load the styles
+	var content = __webpack_require__(1);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(8)(content, {});
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(true) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept(1, function() {
+				var newContent = __webpack_require__(1);
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ },
+/* 10 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __vue_exports__, __vue_options__
+	var __vue_styles__ = {}
+	
+	/* script */
+	__vue_exports__ = __webpack_require__(5)
+	
+	/* template */
+	var __vue_template__ = __webpack_require__(11)
+	__vue_options__ = __vue_exports__ = __vue_exports__ || {}
+	if (
+	  typeof __vue_exports__.default === "object" ||
+	  typeof __vue_exports__.default === "function"
+	) {
+	if (Object.keys(__vue_exports__).some(function (key) { return key !== "default" && key !== "__esModule" })) {console.error("named exports are not supported in *.vue files.")}
+	__vue_options__ = __vue_exports__ = __vue_exports__.default
+	}
+	if (typeof __vue_options__ === "function") {
+	  __vue_options__ = __vue_options__.options
+	}
+	__vue_options__.__file = "D:\\Workspace\\yii-vue-hot\\es6\\components\\Hello.vue"
+	__vue_options__.render = __vue_template__.render
+	__vue_options__.staticRenderFns = __vue_template__.staticRenderFns
+	
+	/* hot reload */
+	if (true) {(function () {
+	  var hotAPI = __webpack_require__(2)
+	  hotAPI.install(__webpack_require__(3), false)
+	  if (!hotAPI.compatible) return
+	  module.hot.accept()
+	  if (!module.hot.data) {
+	    hotAPI.createRecord("data-v-27dbd499", __vue_options__)
+	  } else {
+	    hotAPI.reload("data-v-27dbd499", __vue_options__)
+	  }
+	})()}
+	if (__vue_options__.functional) {console.error("[vue-loader] Hello.vue: functional components are not supported and should be defined in plain js files using render functions.")}
+	
+	module.exports = __vue_exports__
+
+
+/***/ },
+/* 11 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;
+	  return _h('h2', {
+	    domProps: {
+	      "textContent": _vm._s(_vm.message)
+	    }
+	  })
+	},staticRenderFns: []}
+	module.exports.render._withStripped = true
+	if (true) {
+	  module.hot.accept()
+	  if (module.hot.data) {
+	     __webpack_require__(2).rerender("data-v-27dbd499", module.exports)
+	  }
+	}
 
 /***/ }
 /******/ ]);

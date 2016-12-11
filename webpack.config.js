@@ -1,6 +1,7 @@
 //  基本配置文件，服务器配置基于此进行扩展
 var configs = require('./configs'),
     webpack = require('webpack'),
+    HtmlWebpackPlugin = require('html-webpack-plugin'),
     fallback = configs.libPath,
     context = configs.context;
 
@@ -14,7 +15,7 @@ module.exports = {
 
     output: {
         path: configs.dist,
-        publicPath: '/dist/',
+        publicPath: configs.web.public,
         filename: '[name].js',
         //  umd包含了对amd、commonjs、var等多种规范的支持  
         libraryTarget : 'var'  
@@ -87,8 +88,28 @@ module.exports = {
         'vue'    : 'Vue'
     },
     
+    htmlWebpackPlugin : {
+        "files": {
+            "css": [ "main.css" ],    
+        },
+    },
+    
     //  可以优化，添加到webpack.config.server.js中
     plugins: [
+        new HtmlWebpackPlugin({
+            title : 'Webpack Hot Reload Template',
+            filename : 'index.html',
+            inject : 'body',
+            template: 'template.ejs',
+            links: [{
+                href : 'dist/node_modules/bootstrap/dist/css/bootstrap.css',
+                rel : 'stylesheet'
+            }],
+            scripts: [
+                'dist/node_modules/vue/dist/vue.js',
+                'dist/node_modules/jquery/dist/jquery.js'
+            ]
+        }),
         new webpack.optimize.OccurenceOrderPlugin(),
         new webpack.HotModuleReplacementPlugin(),
         new webpack.NoErrorsPlugin()
