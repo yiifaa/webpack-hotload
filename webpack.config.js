@@ -30,6 +30,38 @@ module.exports = {
                 loader: 'babel-loader',
                 include: configs.src,
                 exclude: /(node_modules|bower_components|dist)/
+            }, {
+                test: /\.css$/,
+                loader: "style-loader!css-loader"
+            }, {
+                test: /\.scss$/,
+                loader: "style!css!sass"
+            }, {
+                test: /\.less$/,
+                loader: "style-loader!css-loader!less-loader"
+            }, {
+                test: /\.vue$/,
+                loader: 'vue'
+            }, {
+                test: /\.json$/,
+                loader: 'json'
+            }, {
+                test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
+                loader: 'url',
+                query: {
+                    limit: 10000,
+                    name: 'img/[name].[hash:7].[ext]'
+                }
+            }, {
+                test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,
+                loader: 'url',
+                query: {
+                    limit: 10000,
+                    name: 'fonts/[name].[hash:7].[ext]'
+                }
+            }, {
+                test: /\.(html|tpl)$/,
+                loader: "html"
             }
         ]
     },
@@ -51,7 +83,8 @@ module.exports = {
      * 需要从外部引入的库文件
      */
     externals: {
-        'jquery' : 'jQuery'
+        'jquery' : 'jQuery',
+        'vue'    : 'Vue'
     },
     
     //  可以优化，添加到webpack.config.server.js中

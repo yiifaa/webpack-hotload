@@ -49,3 +49,28 @@ As of version 2.0.0, all client functionality has been rolled into this module. 
 
 This was done to allow full control over the client receiving updates, which is now able to output full module names in the console when applying changes.
 ```
+
+## 6. 代码示例
+### 6.1 引入LESS的方式
+```javascript
+#   直接引入即可，需要加前缀，地址为相对地址
+#   CSS、LESS类似
+import './index.less'
+```
+### 6.2 引入HTML模板的方式
+```javascript
+#   支持文件名自动识别，无需添加任何前缀
+import template from './index.html'
+```
+
+### 6.3 引入vue模板的方式
+```javascript
+#   请按照Vue模板的规范编写
+import hello from './components/Hello.vue'
+#   返回的对象是{ Object }格式，不能直接初始化，只能作为子组件
+#   必须先引入才能使用，如下：
+components : {
+    hello
+}
+#   更多写法请参考例子es6/index.es6
+```
