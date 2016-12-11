@@ -20,7 +20,16 @@ npm run dev
 npm run build
 ```
 
-## 4. 测试说明
+## 4. 架包引入方式
+本版本的架包输出方式为var(全局)，引入方式也为全局，需要在自定义代码之前引入，方式如下：
+```xml
+<!--依赖的架包-->
+<script src="dist/node_modules/jquery/dist/jquery.min.js"></script>
+<!--项目输出的架包-->
+<script src="dist/main.js"></script>
+```
+
+## 5. 测试说明
 将libraryTarget改为“amd”后，发现动态加载main.js错误，生成的动态代码与编译构建后的代码相差非常巨大（相差大约1200多行代码），得到的对象完全不是源码导出的对象，而是具有subscrib等属性的新对象，具体代码如下：
 ```javascript
 module.exports = {
