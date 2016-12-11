@@ -1,7 +1,6 @@
 Webpack Hot Middleware
 -----------------------
-Webpack热加载模板
-
+Webpack热加载模板，[DEMO访问地址](https://yiifaa.github.io/webpack-hotload/index.html)
 ## 1. 原因
 > 现有的模板都不满足要求，不是缺少模块，就是限制太多，修改起来非常麻烦，于是自己重启了一个项目，实验了多次，才得到了这么一个可灵活配置webpack模板。
 
