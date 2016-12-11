@@ -41,4 +41,4 @@ As of version 2.0.0, all client functionality has been rolled into this module. 
 
 This was done to allow full control over the client receiving updates, which is now able to output full module names in the console when applying changes.
 ```
-除了入口文件，其他文件工作正常，看来入口文件只能以webpack后加载，而不能动态加载
+除了入口文件，其他文件工作正常，看来入口文件只能以webpack后加载，而不能动态加载。
