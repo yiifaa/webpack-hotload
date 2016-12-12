@@ -6,7 +6,8 @@
   "license": "MIT",
   "scripts": {
     "dev": "node hot-dev-server.js",
-    "build": "webpack --config webpack.config.js"
+    "build": "webpack --config webpack.config.js",
+    "test": "node test.js"
   },
   "devDependencies": {
     "babel-core": "^6.0.0",

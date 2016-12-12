@@ -106,8 +106,7 @@ module.exports = {
                 rel : 'stylesheet'
             }],
             scripts: [
-                'dist/node_modules/vue/dist/vue.js',
-                'dist/node_modules/jquery/dist/jquery.js'
+                'dist/node_modules/vue/dist/vue.js',                'dist/node_modules/jquery/dist/jquery.js'
             ]
         }),
         new webpack.optimize.OccurenceOrderPlugin(),

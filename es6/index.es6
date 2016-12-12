@@ -1,6 +1,7 @@
 import './index.less'
 import Vue from 'vue'
 import hello from './components/Hello.vue'
+import panel from './components/Panel.vue'
 import template from './index.html'
 
 //  定义初始化函数
@@ -24,7 +25,12 @@ let init = function () {
 
         components : {
             //  hello对象只能作为Vue子组件，不能直接初始化
-            hello
+            hello,
+            panel
+        },
+        
+        created () {
+            
         }
     })
     
