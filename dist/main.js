@@ -65,7 +65,7 @@
 /******/ 	}
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "e10e49d77c3574b63a5a"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "ba5fe16b958a49ed28a9"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -570,7 +570,7 @@
 /******/ 	__webpack_require__.c = installedModules;
 /******/
 /******/ 	// __webpack_public_path__
-/******/ 	__webpack_require__.p = "dist/";
+/******/ 	__webpack_require__.p = "/dist/";
 /******/
 /******/ 	// __webpack_hash__
 /******/ 	__webpack_require__.h = function() { return hotCurrentHash; };
@@ -873,7 +873,7 @@
 /* 7 */
 /***/ function(module, exports) {
 
-	module.exports = "<main class=\"container\">\r\n    <h1 v-text=\"message\"></h1>\r\n    <hello></hello>\r\n</main>";
+	module.exports = "<main class=\"container\">\n    <h1 v-text=\"message\"></h1>\n    <hello></hello>\n    <a href=\"http://www.sina.com.cn\" target=\"_blank\">Sina</a>\n</main>\n";
 
 /***/ },
 /* 8 */
@@ -1149,7 +1149,7 @@
 	if (typeof __vue_options__ === "function") {
 	  __vue_options__ = __vue_options__.options
 	}
-	__vue_options__.__file = "D:\\Workspace\\yii-vue-hot\\es6\\components\\Hello.vue"
+	__vue_options__.__file = "/home/yiifaa/Workspace/webpack-hotload/es6/components/Hello.vue"
 	__vue_options__.render = __vue_template__.render
 	__vue_options__.staticRenderFns = __vue_template__.staticRenderFns
 	
@@ -1160,9 +1160,9 @@
 	  if (!hotAPI.compatible) return
 	  module.hot.accept()
 	  if (!module.hot.data) {
-	    hotAPI.createRecord("data-v-27dbd499", __vue_options__)
+	    hotAPI.createRecord("data-v-7676f84e", __vue_options__)
 	  } else {
-	    hotAPI.reload("data-v-27dbd499", __vue_options__)
+	    hotAPI.reload("data-v-7676f84e", __vue_options__)
 	  }
 	})()}
 	if (__vue_options__.functional) {console.error("[vue-loader] Hello.vue: functional components are not supported and should be defined in plain js files using render functions.")}
@@ -1185,7 +1185,7 @@
 	if (true) {
 	  module.hot.accept()
 	  if (module.hot.data) {
-	     __webpack_require__(2).rerender("data-v-27dbd499", module.exports)
+	     __webpack_require__(2).rerender("data-v-7676f84e", module.exports)
 	  }
 	}
 
