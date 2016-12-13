@@ -4,15 +4,21 @@ import hello from './components/Hello.vue'
 import panel from './components/Panel.vue'
 import template from './index.html'
 
-//  定义初始化函数
-let init = function () {
+/**
+ * 程序初始化函数
+ * @function init
+ * @param {Object} options - 程序启动的配置参数
+ * @param {string} [options.el=#appRoot] - 根组件挂载位置，遵守CSS选择符规范
+ * @tutorial index
+ */
+let init = function (options) {
     /**
     let template = `<div>
                         <h1 v-text="message"></h1>
                         <hello></hello>
                     </div>`,
      **/
-    //  初始化根节点
+    let el = options.el
     let App = Vue.extend({
         
         template,
@@ -36,8 +42,10 @@ let init = function () {
     
     //  初始化应用
     new App({
-        el : '#appRoot'
+        el
     })
 }
 //  执行函数
-init()
+init({
+    el : '#appRoot'
+})

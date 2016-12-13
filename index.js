@@ -5,6 +5,7 @@ require.config({
     baseUrl: 'dist/'
     
 });
+
 //  启动应用程序
 require(['main'], function(app) {
    app.default(); 
