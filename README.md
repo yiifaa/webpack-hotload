@@ -1,6 +1,10 @@
 Webpack Hot Reload
 -----------------------
-Webpack热加载模板，[DEMO访问地址](https://yiifaa.github.io/webpack-hotload/index.html)
+Webpack热加载模板，实现编辑即所见效果。
+1. [DEMO访问地址](https://yiifaa.github.io/webpack-hotload/index.html)。
+2. [API文档地址](https://yiifaa.github.io/webpack-hotload/docs/api/webpack-hot/1.0.0/index.html)。
+
+
 
 ## 1. 原因
 > 现有的模板都不满足要求，不是缺少模块，就是限制太多，无论管理、维护、拓展与学习都非常麻烦。
